@@ -1,0 +1,113 @@
+%% file homework-2024.tex
+
+\documentclass[a4paper]{article}
+
+\usepackage{a4wide}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,automata}
+
+\begin{document}
+
+\tikzset{%%
+  every picture/.style={
+    ->, >=stealth', shorten >=0.5pt,  auto, inner sep=2pt,
+    node distance=2.8cm, semithick, initial text=, double distance=1.25pt},
+  every state/.style={
+    circle, minimum size=15pt, inner sep=1pt, draw},
+  every loop/.style={
+    min distance=12.5mm},
+} %%
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0cm}
+\large
+
+\newcommand{\Connect}{\textsc{connect}}
+\newcommand{\Mid}{\textsc{mid}}
+\newcommand{\Partition}{\mathit{PARTITION}}
+\newcommand{\SAT}{\mathit{SAT}}
+\newcommand{\SubsetSum}{\mathit{SUBSET} \mbox{-} \mathit{SUM}}
+\newcommand{\DominatingSet}{\mathit{DOMINATING} \mbox{-} \mathit{SET}}
+\newcommand{\VertexCover}{\mathit{VERTEX} \mbox{-} \mathit{COVER}}
+
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\code}[1]{\langle {#1} \rangle}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\false}{\mathit{false}}
+\newcommand{\lc}{\lbrace \,}
+\newcommand{\lpshuffle}{\mathop{\parallel_{\ell p}}}
+\newcommand{\pair}[2]{\langle {#1}, \mkern-1mu {#2} \rangle}
+\newcommand{\qsubf}{q_{\mkern-2mu f}}
+\newcommand{\rc}{\, \rbrace}
+\newcommand{\true}{\mathit{true}}
+\newcommand{\singleton}[1]{\lbrace {#1} \rbrace}
+\newcommand{\xbar}{\bar{x}}
+
+
+\section{Automaton engineering}
+    \textbf{For a language $L \subseteq \Sigma^\ast$, for some alphabet~$\Sigma$, the language $\Mid(L)$ is given by}
+    \begin{displaymath}
+      \Mid(L) =
+      \lbrace \, w \in \Sigma^\ast \mid
+      \exists \mkern1mu x,y \in \Sigma^\ast \colon
+      x \mkern0.5mu wy \in L
+      \, \rbrace \mkern1mu .
+    \end{displaymath}
+
+    \textbf{Thus, $\Mid(L)$ consists of strings from~$L$, with some (possibly empty) beginning and ending missing. Prove that $\Mid(L)$ is a regular language if $L$~is a regular language.}
+
+    \medskip
+
+    \textbf{(Hint: Construct from a DFA~$D$ for~$L$ an NFA~$N$ for $\Mid(L)$. The NFA~$N$ makes proper jumps from its new starting state and proper jumps into its new accepting state. Next, show that $\calL(N) = \Mid(L)$.)}
+
+        Since $L$ is regular we know that there exists a DFA $D = (Q, \Sigma, \delta, q_0, F)$ such that $\mathcal{L}(D)=L$. We then will construct the NFA $N = (Q', \Sigma', \delta', q_0', F')$ where $\mathcal{L}(N) = \Mid(L)$ to prove that $\Mid(L)$ is regular if $L$ is regular.
+
+        \bigskip
+        
+        Let $Q' = Q \cup \{ q_0', q_f' \}$, $\Sigma' = \Sigma$, $F' = \{ q_f' \}$, and:
+        \begin{align}
+               \delta'(q, \alpha) &= \{ \delta(q, \alpha) \} \text{ for } \alpha\in\Sigma \wedge q \in Q
+            \\ \delta'(q_0', \eps) &= Q 
+            \\ \delta'(q, \eps) &= \{ q_f' \} \text{ where }q \in Q
+            \\ \delta'(q_f, \eps) &= \{ \}
+        \end{align}
+        
+        Now we prove that: $w\in\mathcal{L}(N) \Leftrightarrow w\in\Mid(L)$.
+        \begin{align}
+            &w\in\mathcal{L}(N)
+            \\&\Leftrightarrow (q_0', w)\vdash^*_N(q_f', \eps)
+            \\&\Leftrightarrow \exists_{q, p}\bigg[ 
+                q, p \in Q :
+                (q_0', w) \vdash_N (q, w) \vdash_N^* (p, \eps) \vdash_N (q_f', \eps) 
+            \bigg]
+            \\&\Leftrightarrow \exists_{q, p, x, y}\bigg[ 
+                q, p \in Q \wedge x, y \in \Sigma^* :
+                (q_0, xwy) \vdash_D^* (q, wy) \vdash_D^* (p, y) \vdash_D^* (q_f, \eps) 
+            \bigg]
+            \\&\Leftrightarrow \exists_{q, p, x, y}\bigg[ 
+                q, p \in Q \wedge x, y \in \Sigma^* :
+                (q_0, xwy) \vdash_D^* (q_f, \eps) 
+            \bigg]
+            \\&\Leftrightarrow \exists_{x, y}\bigg[ 
+                x, y \in \Sigma^* : 
+                xwy \in \mathcal{L}(D)
+            \bigg]
+            \\&\Leftrightarrow \exists_{x, y}\bigg[ 
+                x, y \in \Sigma^* : 
+                xwy \in L
+            \bigg]
+            \\&\Leftrightarrow w\in\Mid(L)    
+        \end{align}
+
+    \bigskip
+    
+    \textbf{Made by}: Tygo van den Hurk \\
+    \textbf{Student Number}: 1705709 \\
+    \textbf{On}: 2024-11-27 15:46:00 CET \\
+\end{document}
