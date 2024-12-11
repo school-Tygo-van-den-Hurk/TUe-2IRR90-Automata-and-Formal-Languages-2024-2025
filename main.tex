@@ -46,9 +46,29 @@
 \newcommand{\xbar}{\bar{x}}
 
 \begin{document}
-    
+    \setlength{\parskip}{0.5em}
+    \setlength{\parindent}{0cm}
     \textbf{Made by}: Tygo van den Hurk \\
     \textbf{Student Number}: 1705709 \\
-    
-    
+    \section*{Question 2: Pumping Lemma}
+        \textbf{Prove that the language $L \subseteq \{a,b,c,d\}^\ast$ is given by}
+        \begin{displaymath}
+            L =
+            \lbrace \, a^i b^{\mkern2mu j} c^k d^{\mkern1mu \ell} \mid
+            i, j, k, \ell \geqslant 0 \land
+            i \leqslant k \land
+            j \leqslant \ell, \rbrace
+        \end{displaymath}
+        \textbf{is not a context-free language.}
+        \medskip
+        \begin{quote}
+            Assume $L$ is a CFL. Using the pumping lemma we will prove by contradiction that $L$ cannot be a CFL. Pick any natural positive integer $p$ such that $p > 0$. Now consider the word $s = a^p b^p c^p d^p$, trivially, $s\in L$, and $|s| > p$. Now, take any arbitrary 5-split such that $s = uvwxy$ and where $|vwx| \leq p$, and $|vx| > 0$. We will find an $i \in \mathcal{N}$, where $i \geq 0$, such that $u v^i w x^i y \not\in L$. To do that, we will distinguish cases:
+            \begin{itemize}
+                \item \textbf{Case $\#_a(vwx) \neq 0$:} then we have that $\#_c(vwx) = 0$ as $|vwx| \leq p$. Now consider $s_2 = uv^2wx^2y$, it is now absolutely obvious that since $\#_a(vwx) \neq 0 \wedge \#_c(vwx) = 0 \implies \#_a(s_2) > \#_a(s) \wedge \#_c(s_2) = \#_c(s)$. So, therefore, $\#_a(s) > \#_c(s_2)$, which means that $s_2 \not\in L$.
+                \item \textbf{Case $\#_b(vwx) \neq 0$:} then we have that $\#_d(vwx) = 0$ as $|vwx| \leq p$. Now consider $s_2 = uv^2wx^2y$, it is now absolutely obvious that since $\#_b(vwx) \neq 0 \wedge \#_d(vwx) = 0 \implies \#_b(s_2) > \#_b(s) \wedge \#_d(s_2) = \#_d(s)$. So, therefore, $\#_b(s) > \#_d(s_2)$, which means that $s_2 \not\in L$.
+                \item \textbf{Case $\#_c(vwx) \neq 0$:} then we have that $\#_a(vwx) = 0$ as $|vwx| \leq p$. Now consider $s_0 = uv^0wx^0y$, it is now absolutely obvious that since $\#_c(vwx) \neq 0 \wedge \#_a(vwx) = 0 \implies \#_c(s_2) < \#_c(s) \wedge \#_a(s_2) = \#_a(s)$. So, therefore, $\#_a(s_2) > \#_c(s_2)$, which means that $s_2 \not\in L$.
+                \item \textbf{Case $\#_d(vwx) \neq 0$:} then we have that $\#_b(vwx) = 0$ as $|vwx| \leq p$. Now consider $s_0 = uv^0wx^0y$, it is now absolutely obvious that since $\#_d(vwx) \neq 0 \wedge \#_b(vwx) = 0 \implies \#_d(s_2) < \#_d(s) \wedge \#_b(s_2) = \#_b(s)$. So, therefore, $\#_b(s_2) > \#_d(s_2)$, which means that $s_2 \not\in L$.
+            \end{itemize}
+            Since $|vx| > 0 \implies vx \neq \eps$ so at least of one these cases must be the one we are looking at. But since we are able to find a pumping amount $i$ for each case where $s$ gets pumped out of $L$ we can conclude that L cannot be a CFL.
+        \end{quote}
 \end{document}
