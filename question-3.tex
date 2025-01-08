@@ -1,0 +1,37 @@
+\section*{Question 3: Undecidability}
+    \textbf{Consider the language }$Double_{TM}$\textbf{ given by:}
+    \begin{displaymath}
+        Double_{TM} = \{ \text{ } \langle M \rangle \text{ } | \text{ if TM M halts on input }w\text{ then M Diverges on input }ww\text{ }\}
+    \end{displaymath}
+    \textbf{Prove that the language }$Double_{TM}$\textbf{ is undecidable using a reduction from }$\mathcal{A}_{TM}$\text{.}
+    \medskip
+    \begin{quote}
+        Assume a Turing Machine $R$ decides $Double_{TM}$. We will prove that $Double_{TM}$ is undecidable by using $R$ to build a TM $S$ that decides $\mathcal{A}_{TM}$, a language known to be undecidable. Giving us a contradiction. Construct $S$ as follows:
+        \begin{quote}
+            S = "on input $\langle M, w\rangle$:
+                \begin{enumerate}
+                    \item construct $M'$ as follows:\\
+                        $M'$ ="on input $x$:
+                        \begin{enumerate}
+                            \item if $x=00$: diverge
+                            \item else if $x\neq0$: reject
+                            \item else simulate $M$ on $w$ 
+                            \item if $M$ accepts $w$, accept, otherwise reject."
+                        \end{enumerate}
+                    \item run $R$ on $\langle M'\rangle$.
+                    \item if $R$ accepts, accept otherwise reject."
+                \end{enumerate}
+        \end{quote}
+        \medskip
+        We prove that $\mathcal{L}(S) = \mathcal{A}_{TM}$:
+        \begin{align}
+            &\langle M, w \rangle\in\mathcal{L}(S)
+            \\&\Leftrightarrow S\text{ accepts }\langle M, w\rangle\
+            \\&\Leftrightarrow R\text{ accepts }\langle M'\rangle\
+            \\&\Leftrightarrow M'\text{ accepts }0\text{ and diverges on 00}
+            \\&\Leftrightarrow M\text{ accepts }w
+            \\&\Leftrightarrow\langle M, w\rangle\in\mathcal{A}_{TM}
+        \end{align}
+        \medskip
+        So therefore $S$ decides $\mathcal{A}_{TM}$. This is not possible because $\mathcal{A}_{TM}$ is known to be undecidable. So, therefore, our assumption that $R$ exists must be false, meaning $Double_{TM}$ undecidable.
+    \end{quote}
