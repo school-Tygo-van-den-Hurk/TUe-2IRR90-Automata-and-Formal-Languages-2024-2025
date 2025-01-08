@@ -1,0 +1,23 @@
+\section*{Question 2: Pumping Lemma}
+    \textbf{Prove that the language $L \subseteq \{0,1\}^\ast$ is given by:}
+    \begin{displaymath} % \geqslant \leqslant
+        L = \{\text{ }
+            u\#w  \mid u, w \in \{0, 1\}^* \text{ and } u \text{ is a substring of } w
+        \text{ }\}
+    \end{displaymath}
+    \textbf{is not a context-free language by applying the pumping lemma for context-free languages. Using no more than 5 cases.}
+    \medskip
+    \begin{quote}
+        Assume that $L$ is a CFL. Then by application of the pumping lemma for context free languages we'll prove that this language is not context free by arriving at a contradiction. Pick a $p\in\mathcal{N}$ such that $p > 0$. Then consider the word $s = w_1\#w_2 = abc\#abc = 11(01)^p00\#11(01)^p00$. Its trivial to see that $s\in L$, and $|s| > p$. Then take any arbitrary 5-split $s = uvwxy$ such that $|vwx| \leqslant p$, and $|vx| > 0$. For each case we will find a $i\in \mathcal{N}$ such that $s_i = uv^iwx^iy \not\in L$.
+        \begin{itemize}
+            \item \textbf{Case $vwx$ only contains symbols from $w_1$:} consider $s_2 = uv^2wx^2y = d_1\#d_2$ since $vwx$ does not contain a single letter of $w_2$ this means that $|d_1| > |d_2|$ thus $d_1$ is now no longer a substring of $d_2$. Meaning $s_2 \not\in L$.
+            \item \textbf{Case $vwx$ only contains symbols from $w_2$:} consider $s_0 = uv^0wx^0y = d_1\#d_2$ since $vwx$ does not contain a single letter of $w_1$ but does contain symbols of $w_2$ that will mean that $|d_1| > |d_2|$ therefore $d_1$ is now no longer a substring of $d_2$. Meaning $s_2 \not\in L$.
+            \item \textbf{Case $vwx$ contain letters of both $w_1$ and $w_2$:} consider the string $s_2 = uv^2wx^2y = d_1\#d_2$. Since it contains both letters of $w_1$ and $w_2$, $s_2$ will result in:
+            \begin{itemize}
+                \item $d_1$ having a different suffix than $d_2$,
+                \item and $d_2$ having a different prefix as $d_1$.
+            \end{itemize}
+            As any changes to $d_1$ will not be reflected in $d_2$, and vise versa. $s_2$ will be in the form of $11(01)^f0^g\#^h1^k(01)^l00$ where $f, g, h, k, l \in\mathcal{N}$ but also where now $g\neq 2 \wedge k\neq2$. Thus $d_1$ cannot be a substring of $d_2$, and therefore $s_2\not\in L$.
+        \end{itemize}
+        We can see that in each case we arrive at a contradiction, thus our assumption that $L$ is context-free must be false. Meaning that $L$ cannot be context-free.
+    \end{quote}
