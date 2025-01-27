@@ -13,13 +13,12 @@
                     \item construct $M'$ as follows:\\
                         $M'$ ="on input $x$:
                         \begin{enumerate}
-                            \item if $x=00$: diverge
-                            \item else if $x\neq0$: reject
-                            \item else simulate $M$ on $w$ 
-                            \item if $M$ accepts $w$, accept, otherwise reject."
+                            \item if $x\neq w$: diverge.
+                            \item else simulate $M$ on $w$.
+                            \item if $M$ accepts $w$, accept, otherwise diverge."
                         \end{enumerate}
                     \item run $R$ on $\langle M'\rangle$.
-                    \item if $R$ accepts, accept otherwise reject."
+                    \item if $R$ accepts then accept, otherwise reject."
                 \end{enumerate}
         \end{quote}
         \medskip
@@ -28,7 +27,7 @@
             &\langle M, w \rangle\in\mathcal{L}(S)
             \\&\Leftrightarrow S\text{ accepts }\langle M, w\rangle\
             \\&\Leftrightarrow R\text{ accepts }\langle M'\rangle\
-            \\&\Leftrightarrow M'\text{ accepts }0\text{ and diverges on 00}
+            \\&\Leftrightarrow M'\text{ accepts }w\text{ and diverges on }ww
             \\&\Leftrightarrow M\text{ accepts }w
             \\&\Leftrightarrow\langle M, w\rangle\in\mathcal{A}_{TM}
         \end{align}
