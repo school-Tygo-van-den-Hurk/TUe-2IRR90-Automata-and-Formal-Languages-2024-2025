@@ -34,7 +34,7 @@
 
       packages.default = pkgs.stdenv.mkDerivation rec {
         name = "automata-report";
-        src = ./.;
+        src = ./src;
         buildInputs = with pkgs; [ texliveFull ];
 
         buildPhase = ''
